@@ -1,0 +1,44 @@
+SQL Data Reader:
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Data;
+namespace Database_Connectivity
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        SqlCommand cmd;
+        SqlConnection con;
+        SqlDataReader rd;
+        SqlDataAdapter adap;
+        string query;
+        DataTable dt;
+        public void dbconn()
+        {
+        string conn = System.Configuration.ConfigurationManager.ConnectionStrings["mycon"].ToString();
+        con = new SqlConnection(conn);
+        con.Open();
+        }
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            dbconn();
+            query = "INSERT INTO Form(Name,Age,Qualification,address,Phone_number,Email) VALUES('" + TextBox1.Text + "', '" + TextBox2.Text + "', '" + TextBox3.Text + "', '" + TextBox4.Text + "','" + TextBox5.Text + "','" + TextBox6.Text + "')";
+            cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            Response.Write("<script>alert('Data Saved Successfully')</script");
+
+        }
+    }
+}
+
